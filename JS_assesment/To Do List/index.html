@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List UI</title>
+    <style>
+        /* Main container styling */
+        .todo-container {
+            width: 400px;
+            margin: 2rem auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Heading style */
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Input and button container */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Input field styling */
+        #todoInput {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        /* Add button styling */
+        #addBtn {
+            padding: 12px 24px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        #addBtn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Todo list styling */
+        #todoList {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Todo item styling */
+        #todoList li {
+            padding: 15px;
+            background-color: #f8f9fa;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .todo-container {
+                width: 90%;
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="todo-container">
+        <h2>Add new</h2>
+        <div class="input-group">
+            <input type="text" id="todoInput" placeholder="Enter new todo">
+            <button id="addBtn">Add</button>
+        </div>
+        <ul id="todoList">
+            <li>Read a book</li>
+            <li>Lunch with Caro</li>
+            <li>Feed the dog</li>
+        </ul>
+    </div>
+
+    <script>
+        // Initialize elements
+        const addBtn = document.getElementById('addBtn');
+        const todoInput = document.getElementById('todoInput');
+        const todoList = document.getElementById('todoList');
+
+        // Load existing todos from cookies
+        // function loadTodos() {
+        //     const cookies = document.cookie.split(';');
+        //     const todoCookie = cookies.find(c => c.trim().startsWith('todos='));
+
+        //     if (todoCookie) {
+        //         const todos = JSON.parse(todoCookie.split('=')[1]);
+        //         todos.forEach(todo => addTodoItem(todo));
+        //     }
+        // }
+
+        // Save todos to cookies
+        // function saveTodos() {
+        //     const todos = Array.from(todoList.children).map(li => li.textContent);
+        //     const date = new Date();
+        //     date.setDate(date.getDate() + 7); // 1 week expiration
+        //     document.cookie = `todos=${JSON.stringify(todos)}; expires=${date.toUTCString()}; path=/`;
+        // }
+
+        // Add new todo item
+        function addTodoItem(text) {
+            const li = document.createElement('li');
+            li.textContent = text;
+            todoList.appendChild(li);
+        }
+
+        // Event listeners
+        addBtn.addEventListener('click', () => {
+            const newTodo = todoInput.value.trim();
+            if (newTodo) {
+                addTodoItem(newTodo);
+                todoInput.value = '';
+                saveTodos();
+            }
+        });
+
+        todoInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addBtn.click();
+        });
+
+        // Initial load
+        loadTodos();
+    </script>
+</body>
+
+</html>
